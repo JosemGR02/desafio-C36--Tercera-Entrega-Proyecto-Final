@@ -1,0 +1,76 @@
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| COMANDOS DESAFIO.TXT |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
++++++++++++++++( Profiler y Artillery: )++++++++++++++++++
+
+[ --prof ]
+
+node --prof src/app.js
+
+curl -X GET "http://localhost:8080/api/info/bloq" 
+curl -X GET "http://localhost:8080/api/info/nobloq" 
+
+((curl -X GET "http://localhost:8080/newUser?username=marian&password=qwerty123"))
+
+------------------------------------------
+
+[ artillery ]
+
+artillery quick --count 20 -n 50 "http://localhost:8080/bloq
+artillery quick --count 20 -n 50 "http://localhost:8080/nobloq
+
+(( artillery quick --count 20 -n 50 "http://localhost:8080/auth-bloq?username=marian&password=qwerty123" > resultado_bloq.txt ))
+
+------------------------------------------
+
+|=========| cambiar nombre archivo:
+
+isolate.log a bloq_v8.log
+
+------------------------------------------
+
+[ -process ]
+
+decodificar bloqueante:
+
+node --prof-process bloq-v8.log > result_prof-bloq.txt
+
+decodificar nobloqueante:
+
+node --prof-process nobloq-v8.log > result_prof-nobloq.txt
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++++++++++++++++( Autocannon y 0X: )++++++++++++++++++
+
+
+npm run start  (0x app.js)  (FORK)
+
+curl -X GET 'http://localhost:8080/nobloq
+
+npm run test (node benchmark.js)
+
+((( (benchmark.js) => 2: run('http://localhost:8080/api/info/nobloq'  y  run('http://localhost:8080/api/info/bloq') )))
+
+autocannon -d 20 -c 500 "http://localhost:8080/bloq
+
+autocannon -d 20 -c 500 "http://localhost:8080/nobloq
+
+
+|=========| Diagrama de flama con 0x: |=========|
+
+Ctrl c => ir a pag. 
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++++++++++++++++( conclusión del análisis de los datos: )++++++++++++++++++
+
+
+
+
+
+
+Incluir informe en formato pdf sobre las pruebas realizadas incluyendo los resultados de todos los test (texto e imágenes). 

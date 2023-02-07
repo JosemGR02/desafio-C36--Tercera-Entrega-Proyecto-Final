@@ -1,0 +1,33 @@
+
+<div>
+    <h2> PAGINA INICIO </h2>
+    <div class="usuario">
+        <h3 class="alert alert-info" role="alert">¡Bienvenido, estas registrado con el email: {{email}}, ¡Esperamos que disfrutes de tu estadía en nuestra pagina!</h3>
+        <hr>
+        <div>
+            <h3> DATOS DEL USUARIO: </h3>
+            <ul>        
+                <li>{{usuario.avatar}}</li>
+                <li>Nombre: {{usuario.nombre}}</li>
+                <li>Email: {{usuario.email}}</li>
+                <li>Edad: {{usuario.edad}}</li>
+                <li>Telefono: {{usuario.telefono}}</li>
+                <li>Direccion: {{usuario.direccion}}</li>
+                <li>Contraseña: {{usuario.contrasena}}</li>
+            </ul>
+            <div>
+                <h4>Productos del carrito:</h4>
+                {{!-- {{carrito}} --}}
+                <ul>
+                    {{#each carrito}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <button class="btn btn-danger" onclick="location.href='/api/autenticacion/logout'">Cerrar Sesion</button>
+        </div>
+    </div>
+</div>
