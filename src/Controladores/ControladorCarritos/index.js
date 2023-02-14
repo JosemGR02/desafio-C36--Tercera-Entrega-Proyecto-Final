@@ -1,125 +1,86 @@
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Controlador Carrito Compra |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-import { DaoCarrito, DaoProducto } from "../../Dao/index.js";
-import { FECHA_UTILS, ERRORES_UTILS } from "../../Utilidades/index.js";
+import { transporter, client } from '../../Servicios/index.js';
+import { logger } from '../../Configuracion/logger.js';
+import { DaoCarrito } from '../../Dao/index.js';
 
 
-const obtenerCarritoXid = async (solicitud, respuesta) => {
+
+const procesarPedido = async (solicitud, respuesta, next) => {
     try {
-        const { id } = solicitud.params;
+        const id = solicitud.params.id;
+        // const carritoId = solicitud.user.carrito;
+        const carritoId = solicitud.usuario.carrito;
 
-        const carrito = await DaoCarrito.obtenerXid(id);
+        logger.info({ carritoId });
 
-        respuesta.send({ success: true, carrito });
-    } catch (error) {
-        respuesta.send({ error: "Error al obtener el carrito solicitado" })
-    }
-};
+        const carrito = await DaoCarrito.obtenerCarritoXid(id);
 
+        if (carrito == carrito.length === 0) logger.warn("El carrito seleccionado no tiene productos todavia")
 
-const crearCarrito = async (solicitud, respuesta) => {
-    try {
-        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), products: [] };
+        if (!carrito) {
+            throw new Error('El carrito eleccionado no existe');
+        }
 
-        const nuevoCarrito = await DaoCarrito.guardar(carritoBase);
+        if (solicitud.isAuthenticated()) {
+            if (carrito.usuario.nombre === solicitud.user.nombre) {
+                let mensaje = "El carrito contiene: "
+                const pedidocompra = carrito.forEach(producto => { mensaje += `${producto},` });
 
-        respuesta.send({ success: true, carritoId: nuevoCarrito.id });
-    } catch (error) {
-        respuesta.send({ error: "Error al crear el carrito" })
-    }
-};
+                logger.info({ pedidocompra });
 
+                // envio Email
+                let envioEmail = {
+                    from: "Remitente",
+                    to: config.EMAIL.USUARIO,
+                    subject: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                    text: `Productos solicitados por el usuario: ${carrito.productos}`
+                    // ``````${cart.productos}```````
+                };
 
-const guardarProdsCarrito = async (solicitud, respuesta) => {
-    try {
-        const { productoId } = solicitud.body;
-        const { carritoId } = solicitud.params;
+                let info = transporter.sendMail(envioEmail, (error, info) => {
+                    if (error) {
+                        logger.error("Error al enviar mail: " + error);
+                    } else {
+                        logger.info("El email fue enviado correctamente: %s", info.messageId);
+                        logger.info("Vista previa a URL: %s", nodemailer.getTestMessageUrl(info));
+                    }
+                });
 
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
+                // envio SMS
+                const envioSMS = await client.messages.create({
+                    body: "Su pedido ya ha sido recibido y esta en proceso",
+                    from: config.WHATSAPP.NRO_TWILIO,
+                    to: carrito.usuario.telefono
+                });
 
-        if (!carrito)
-            return logger.error({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
+                logger.info(`Mensaje SMS enviado correctamente ${envioSMS}`);
 
-        const producto = await DaoProducto.obtenerXid(productoId);
+                // envio Whatsapp
+                const envioWhatsapp = await client.messages.create({
+                    body: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                    from: config.WHATSAPP.NRO_TWILIO,
+                    to: `whatsapp:${carrito.usuario.telefono}`
+                });
 
-        if (!producto)
-            return logger.error({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO });
+                logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
 
-        carrito.productos.push(producto);
+                logger.info('Pedido procesado con exito')
+                respuesta.render('view/home', { pedidocompra });
+            } else {
+                throw new Error("El carrito seleccionado no pertenece a tu usuario");
+            }
 
-        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
-
-        respuesta.send({ success: true, carrito: carritoActualizado });
-    } catch (error) {
-        respuesta.send({ error: "Error al guardar un producto al carrito" })
-    }
-};
-
-const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
-    try {
-        const { carritoId } = solicitud.params;
-
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
-        if (!carrito) { respuesta.send({ error: "Error, no se encontro el carrito" }) }
-
-        else {
-            const listadoProductos = await DaoProducto.obtenerTodos();
-
-            if (!listadoProductos) return respuesta.send({ error: true, mensaje: "No se encontraron los productos solicitados" });
-
-            respuesta.send({ success: true, productos: carrito.productos });
+        } else {
+            throw new Error("Debes estar autenticado para enviar pedidos");
         }
     } catch (error) {
-        respuesta.send({ error: "Error al obtener la lista los productos del carrito" })
+        next(error);
     }
-};
+}
 
-const eliminarProdCarrito = async (solicitud, respuesta) => {
-    try {
-        const { carritoId, productoId } = solicitud.params;
-
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
-        if (!carrito) return logger.error({ error: "Error, no se encontro el carrito" })
-
-        else {
-            const producto = await DaoProducto.obtenerXid(productoId);
-            if (!producto) return logger.error({ error: "Error, no se encontro el producto" })
-
-            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === Number(productoId))
-            if (elementoEncontradoIndex === -1) return respuesta.send({ error: "Error, no se encontro el producto" })
-            carrito.productos.splice(elementoEncontradoIndex, 1)
-        }
-        const carritoActualizado = await DaoCarrito.actualizar(Number(carritoId), carrito)
-        respuesta.send({ success: true, mensaje: "Se elimino correctamente el producto del carrito", carrito: carritoActualizado })
-
-    } catch (error) {
-        respuesta.send({ error: "Error al eliminar un producto del carrito" })
-    }
-};
-
-
-const eliminarCarritoXid = async (solicitud, respuesta) => {
-    try {
-        const { carritoId } = solicitud.params;
-
-        const carrito = await DaoCarrito.eliminarXid(carritoId);
-        if (!carrito) return logger.error({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
-
-        respuesta.send({ success: true, mensaje: `Se elimino correctamente el carrito ${carritoId}` })
-    } catch (error) {
-        respuesta.send({ error: "Error al eliminar el carrito seleccionado" })
-    }
-};
-
-
-export const controladorCarritos = {
-    obtenerCarritoXid,
-    crearCarrito,
-    obtenerTodosProdsCarrito,
-    guardarProdsCarrito,
-    eliminarProdCarrito,
-    eliminarCarritoXid,
-};
+export const controladorCarritos = { procesarPedido };
 
 
 
@@ -129,4 +90,40 @@ export const controladorCarritos = {
 
 
 
+
+// ruta.post("/compra", async (solicitud, respuesta) => {
+//     try {
+//         const carritoId = solicitud.usuario.carrito;
+
+//         logger.info({ pedidoCompra, carritoId });
+
+//         const carrito = await DaoCarrito.obtenerCarritoXid(carritoId);
+
+//         if (!carrito) {
+//             throw new Error('El carrito eleccionado no existe');
+//         }
+//         if (carrito == carrito.length === 0) logger.warn("El carrito seleccionado, todavia no tiene productos !!")
+
+
+//         if (solicitud.estaAutenticado()) {
+//             if (carrito.usuario.nombre === solicitud.user.nombre) {
+//                 let mensaje = "El carrito contiene: "
+//                 const pedidocompra = carrito.forEach(producto => { mensaje += `${producto},` });
+
+//                 logger.info({ mensaje });
+
+//                 servicioMensajeGmail.emailCompra();
+//                 servicioMensajeSMS();
+
+//                 respuesta.render('view/home', { pedidocompra });
+//             } else {
+//                 logger.warn('Error, el carrito este no es tu carrito');
+//             }
+//         } else {
+//             throw new Error("Tenes estar autenticado para realizar pedidos de compra");
+//         }
+//     } catch (error) {
+//         respuesta.send(`${error}, Error en Checkout`);
+//     }
+// });
 

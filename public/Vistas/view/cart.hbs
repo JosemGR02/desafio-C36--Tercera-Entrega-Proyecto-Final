@@ -1,21 +1,25 @@
 
 <div>
+    <h2> PAGINA CARRITO </h2>
     <div>
-        <h2> PAGINA INFORMACION</h2>
-        <ul>        
-            <li>Argumento de entrada: {{datos.argumentosEntrada}}</li>
-            <li>Path de ejecución: {{datos.pathEjecucion}}</li>
-            <li>Nombre de la plataforma: {{datos.nombrePlataforma}}</li>
-            <li>Process Id: {{datos.processId}}</li>
-            <li>Version de Node: {{datos.versionNode}}</li>
-            <li>Carpeta del proyecto: {{datos.carpetaDeProyecto}}</li>
-            <li>Memoria reservada: {{datos.memoriaTotalReservada}}</li>
-            <li>Nro Procesadores del servidor: {{datos.procesadoresdCpus}}</li>
-        </ul>
+        <h3> FORMULARIO COMPRA PRODUCTOS: </h3>
+        <hr>
+        <form action="/api/carrito/compra" method="post">
+            <input type="checkbox" name="carrito[]" value="aceite">option1
+            <input type="checkbox" name="carrito[]" value="fideos">option2
+            <input type="checkbox" name="carrito[]" value="azucar">option3
+            <input type="checkbox" name="carrito[]" value="arroz">option3
+            <input type="checkbox" name="carrito[]" value="sal">option3
+            <input type="checkbox" name="carrito[]" value="harina">option3
+            <hr>
+            <button class="btn btn-info" type="submit">Comprar</button>
+        </form>
     </div>
     <div>
         <button class="btn btn-primary" onclick="location.href='/api/randoms/'">Ir a pagina de Nros randoms</button>
 
-        <button class="btn btn-secondary" onclick="location.href='/api/autenticacion/login'">Ir a pagina de inicio sesion</button>
+        <button class="btn btn-secondary" onclick="location.href='/api/info/'">Ir a pagina de informacion</button>
     </div>
 </div>
+
+

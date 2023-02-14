@@ -3,9 +3,8 @@ export { servicioMongoDB } from "./ServicioMongoBD/conexion.js";
 
 export { PassportAutenticacion } from "./Passport/iniciar.js";
 
-export { servicioMensajeGmail } from "./Mensajeria/gmail.js";
+export { client } from './Mensajeria/twilio.js';
 
-export { servicioMensajeSMS } from "./Mensajeria/SMS.js";
+export { transporter } from './Mensajeria/nodemailer.js';
 
-export { servicioMensajeWhatsapp } from "./Mensajeria/whatsapp.js";
 

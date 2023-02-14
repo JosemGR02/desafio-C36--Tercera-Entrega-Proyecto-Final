@@ -1,5 +1,7 @@
 
 export { controladorProductos } from "./ControladorProductos/index.js";
 
-export { controladorCarrito } from "./ControladorCarritos/index.js";
+export { controladorCarritos } from "./ControladorCarritos/index.js";
+
+export { controladorAutenticacion } from "./ControladorAutenticacion/index.js";
 

@@ -7,8 +7,8 @@ export { RutAutenticacion } from './autenticacion/index.js';
 
 export { RutaServidor } from './servidor/index.js';
 
-export { RutaMensajes } from './mensajes/msj.js';
-
 export { RutaProducto } from './productos/prod.js';
+
+export { RutaCarrito } from './carrito/index.js';
 
 

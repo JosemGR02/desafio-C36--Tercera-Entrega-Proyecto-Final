@@ -9,9 +9,7 @@
     "dev": "nodemon src/app.js",
     "0x": "0x src/app.js",
     "test": "node src/benchmark.js",
-    "prod": "LOGGER_MODO=PROD node src/app.js",
-    "gmail": "node src/app.js",
-    "whats": "node src/app.js"
+    "prod": "LOGGER_MODO=PROD node src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -40,6 +38,7 @@
     "pino-pretty": "^9.1.1",
     "rxjs": "^7.8.0",
     "twilio": "^4.7.0",
+    "winston": "^3.8.2",
     "yargs": "^17.6.2"
   },
   "devDependencies": {

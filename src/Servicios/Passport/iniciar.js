@@ -1,3 +1,6 @@
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Servicio Passport |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { BCRYPT_VALIDADOR, ERRORES_UTILS } from '../../Utilidades/index.js';
@@ -54,6 +57,7 @@ const iniciar = () => {
             if (!nombre, !usuario, !contraseña, !edad, !telefono, !direccion, !avatar) return done(null, false);
 
             const usuarioYaExiste = await DaoUsuario.obtenerUno({ 'email': usuario });
+
             if (usuarioYaExiste) {
                 logger.info('El usuario ya existe con el email de: ' + usuario); //usuario.email, usuario.nombre (probar)
                 return done(null, false);
@@ -71,7 +75,8 @@ const iniciar = () => {
                 const usuarioCreado = await DaoUsuario.guardar(nuevoUsuario)
                 logger.info(`Usuario ${usuarioCreado} registrado correctamente`);
 
-                return done(null, usuarioCreado);
+                return done(null,
+                );
             }
         } catch (error) {
             logger.error(`${error}, Error en Passport - Registro`);

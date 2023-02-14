@@ -1,9 +1,10 @@
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Ruta Randoms |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
 import { Router } from 'express';
 import { fork } from 'child_process';
+import compression from 'compression';
+
 
 const ruta = Router();  // Por ej: /?cantidad=20000
 

@@ -1,39 +1,29 @@
 
-
 <div>
-    <h2> REGISTRARSE </h2>
+    <h2> PAGINA REGISTRO </h2>
     <br>
     <div class="alert alert-success" role="alert">
-        <form action="/api/autenticacion/signup" method="post" onsubmit="process(event)" id="login" enctype="multipart/form-data">
-            <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
-            <input type="email" name="email" placeholder="Ingrese su email" required>
-            <input type="password" name="contraseña" placeholder="Ingrese su contraseña" required>
-            <input type="number" name="edad" placeholder="Ingrese su edad" required>
-            <input type="text" name="direccion" placeholder="Ingrese su direccion" required>
-            <br>
-            <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su N° de telefono" required/>
-            <input type="submit" class="btn" value="Verify"/>
-            <br>
-            <div class="alert alert-info" style="display: none;"></div>
-            <br>
-            <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
-
-            <br>
-            <form action="/api/carrito/" method="post">  // api/autenticacion/signup // api/compra/
-                <h4>compra productos</h4>
-                <input type="checkbox" name="carrito[]" value="aceite">producto Nro1
-                <input type="checkbox" name="carrito[]" value="fideos">producto Nro2
-                <input type="checkbox" name="carrito[]" value="azucar">producto Nro3
-                <input type="checkbox" name="carrito[]" value="arroz">producto Nro4
-                <input type="checkbox" name="carrito[]" value="sal">producto Nro5
-                <input type="checkbox" name="carrito[]" value="harina">producto Nro6
-                <hr>
-                <button class="btn btn-info" type="submit">comprar</button>
-            </form>
+        <form action="/api/autenticacion/signup" method="post" onsubmit="process(evento)" id="login" enctype="multipart/form-data">
+            <div>
+                <h3>Ingrese sus datos para poder registrarse</h3>
+                <br>
+                <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
+                <input type="email" name="email" placeholder="Ingrese su email" required>
+                <input type="password" name="contraseña" placeholder="Ingrese su contraseña" required>
+                <input type="number" name="edad" placeholder="Ingrese su edad" required>
+                <input type="text" name="direccion" placeholder="Ingrese su direccion" required>
+                <br>
+                <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su N° de telefono" required/>
+                <input type="submit" class="btn" value="Verify"/>
+                <br>
+                <div class="alert alert-info" style="display: none;"></div>
+                <br>
+                <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
+            </div>
             <br>
             <button class="btn btn-primary" type="submit">Ingresar</button>
         </form>
-        <hr>
+        <br>
         <div>
             <button class="btn btn-success" onclick="location.href='/api/autenticacion/login'">Iniciar sesion</button>
         </div>
@@ -60,65 +50,9 @@
         info.style.display = "";
         info.innerHTML = `Su numero de telefono en el formato E.164: <strong>${numeroTelefono}</strong>`;
     }
+
+    
+    // const numeroTelUsuario = await DaoUsuario.obtenerNumero({ 'telefono': telefono });
 </script>
 
 
-
-
-
-
-
-
-
-
-
-{{!-- 
-
-
-
-
-
-<div>
-    <h2> REGISTRARSE </h2>
-    <br>
-    <div class="alert alert-success" role="alert">
-        <form action="/api/autenticacion/signup" method="post">
-            <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
-            <input type="email" name="email" placeholder="Ingrese su email" required>
-            <input type="password" name="contraseña" placeholder="Ingrese su contraseña" required>
-            <input type="number" name="edad" placeholder="Ingrese su edad" required>
-            <input type="text" name="direccion" placeholder="Ingrese su direccion" required>
-            <br>
-            <form action="/api/autenticacion/signup" id="login" onsubmit="process(event)">
-                <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su N° de telefono" required/>
-                {{!-- <input type="number" name="telefono" placeholder="Ingrese su Nro de telefono" required> --}}
-                <input type="submit" class="btn" value="Verify"/>
-                <br>
-                <div class="alert alert-info" style="display: none;"></div>
-            </form>
-            <br>
-            <form action="/api/autenticacion/signup" method="post" enctype="multipart/form-data">
-                <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
-                {{!-- <input type="text" name="foto" placeholder="Ingrese su foto/avatar" required> --}}
-            </form>
-            <br>
-            <form action="/api/carrito/" method="post">  // api/autenticacion/signup // api/compra/
-                <h4>compra productos</h4>
-                <input type="checkbox" name="carrito[]" value="aceite">option1
-                <input type="checkbox" name="carrito[]" value="fideos">option2
-                <input type="checkbox" name="carrito[]" value="azucar">option3
-                <input type="checkbox" name="carrito[]" value="arroz">option3
-                <input type="checkbox" name="carrito[]" value="sal">option3
-                <input type="checkbox" name="carrito[]" value="harina">option3
-                <hr>
-                <button class="btn btn-info" type="submit">comprar</button>
-            </form>
-            <br>
-            <button class="btn btn-primary" type="submit">Ingresar</button>
-        </form>
-        <hr>
-        <div>
-            <button class="btn btn-success" onclick="location.href='/api/autenticacion/login'">Iniciar sesion</button>
-        </div>
-    </div>
-</div> --}}

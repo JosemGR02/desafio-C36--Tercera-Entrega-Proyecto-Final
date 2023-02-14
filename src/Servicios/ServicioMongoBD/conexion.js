@@ -1,4 +1,6 @@
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Servicio Mongoose |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 import mongoose from "mongoose";
 import { config } from "../../Configuracion/config.js";
 

@@ -1,4 +1,6 @@
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Middleware verificacion Admin |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 const ES_ADMIN = true;
 
 const verificarAdmin = (solicitud, respuesta, next) => {

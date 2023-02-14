@@ -1,38 +1,26 @@
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Config registrador PINO JS |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Config registrador Winston |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-import pino from 'pino';
-import pretty from 'pino-pretty';
-import moment from 'moment';
+import winston from 'winston';
+import dotenv from "dotenv";
+dotenv.config();
 
 
 function crearLoggerProd() {
-    const loggerProdWarn = pino('Warn.log', {
-        base: { pid: process.pid },
-        timestamp: () => `, "Hora": "${moment().format()}"`
-    }, pretty())
-
-    loggerProdWarn.level = 'warn'
-
-    const loggerProdError = pino('Error.log', {
-        base: { pid: process.pid },
-        timestamp: () => `, "Hora": "${moment().format()}"`
-    }, pretty())
-
-    loggerProdError.level = 'error'
-
-    return loggerProdWarn, loggerProdError
+    const loggerPROD = winston.createLogger({
+        transports: [
+            new winston.transports.File({ filename: 'warn.log', level: 'warn' }),
+            new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        ],
+    })
+    return loggerPROD
 }
 
-function crearloggerDev() {
-    const loggerDEV = pino({
-        base: { pid: process.pid },
-        timestamp: () => `, "Hora": "${moment().format()}"`
-    }, pretty())
-
-    loggerDEV.level = 'info'
-
+function crearLoggerDev() {
+    const loggerDEV = winston.createLogger({
+        transports: [new winston.transports.Console({ level: 'info' })],
+    })
     return loggerDEV
 }
 
@@ -40,7 +28,9 @@ export let logger = null
 
 if (process.env.LOGGER_MODO === 'PROD') {
     logger = crearLoggerProd()
+    logger.warn('Logger usando modo: PROD.');
 } else {
-    logger = crearloggerDev()
+    logger = crearLoggerDev()
+    logger.info('Logger usando modo: DEV.');
 }
 

@@ -1,4 +1,5 @@
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Middleware ruta no existe |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 import { Router } from 'express';
 import { logger } from '../Configuracion/logger.js';

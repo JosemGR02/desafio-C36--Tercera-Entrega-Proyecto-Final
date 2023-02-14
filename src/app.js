@@ -58,6 +58,8 @@ app.use(express.static('/public'))
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/uploads'));
 
+// app.use(express.static(path.join(__dirname + '/public')));
+
 // Yargs
 const args = yargs
     .default({
@@ -81,20 +83,6 @@ app.set('view engine', 'hbs')
 app.set('views', './public/Vistas');
 // app.set('views', __dirname + "/Vistas");
 
-// Multer
-const myStorage = multer.diskStorage({
-    destination: (solicitud, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (solicitud, file, cb) => {
-        const nombreArchivo = `${Date.now()}-${file.originalname}`
-        cb(null, nombreArchivo);
-    }
-})
-
-export const subirImg = multer({ storage: myStorage })
-// multer({ dest: 'uploads/' })
-
 
 // Rutas 
 app.use('/api/', RutaServidor)
@@ -107,6 +95,23 @@ app.use('/api/productos', RutaProducto);
 // app.use('/api/imgs', RutaInexistente)
 app.use('/api/*', RutaInexistente)
 
+
+// const upload = multer({ dest : './public/data/uploads/'}) 
+// ./public/imgGuardadas/uploads
+
+// Multer
+const myStorage = multer.diskStorage({
+    destination: (solicitud, file, cb) => {
+        cb(null, 'uploads')  // tmp/my-uploads
+    },
+    filename: (solicitud, file, cb) => {
+        const nombreArchivo = `${Date.now()}-${file.originalname}`
+        cb(null, nombreArchivo);
+    }
+})
+
+export const subirImg = multer({ storage: myStorage })
+// multer({ dest: 'uploads/' })
 
 
 
