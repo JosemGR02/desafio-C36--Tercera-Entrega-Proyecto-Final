@@ -28,15 +28,14 @@ const procesarPedido = async (solicitud, respuesta, next) => {
                 let mensaje = "El carrito contiene: "
                 const pedidocompra = carrito.forEach(producto => { mensaje += `${producto},` });
 
-                logger.info({ pedidocompra });
+                logger.info({ mensaje });
 
                 // envio Email
                 let envioEmail = {
                     from: "Remitente",
                     to: config.EMAIL.USUARIO,
                     subject: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
-                    text: `Productos solicitados por el usuario: ${carrito.productos}`
-                    // ``````${cart.productos}```````
+                    text: `Productos solicitados por el usuario: ``````${carrito.productos}```````  //pedidocompra
                 };
 
                 let info = transporter.sendMail(envioEmail, (error, info) => {

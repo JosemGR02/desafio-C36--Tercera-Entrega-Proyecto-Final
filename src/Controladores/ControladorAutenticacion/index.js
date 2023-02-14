@@ -35,14 +35,6 @@ const registro = async (solicitud, respuesta) => {
                 logger.info("Vista previa a URL: %s", nodemailer.getTestMessageUrl(info));
             }
         });
-        let informacion = transporter.sendMail(envioEmail, (error, info) => {
-            if (error) {
-                logger.error("Error al enviar mail: " + error);
-            } else {
-                logger.info("El email fue enviado correctamente: %s", informacion.messageId);
-                logger.info("Vista previa a URL: %s", nodemailer.getTestMessageUrl(informacion));
-            }
-        });
     } catch (error) {
         respuesta.send(`${error}, Error en el Signup`);
     }
@@ -59,8 +51,7 @@ const registro = async (solicitud, respuesta) => {
 //             logger.error('Error al guardar la imagen');
 //         }
 //         logger.info(archivo);
-
-//         //envio msj de registro
+//
 //         const envioEmail = {
 //             from: "Remitente",
 //             to: config.EMAIL.USUARIO,
@@ -80,6 +71,15 @@ const registro = async (solicitud, respuesta) => {
 //         respuesta.send(`${error}, Error en el Signup`);
 //     }
 // }
+
+// let informacion = transporter.sendMail(envioEmail, (error, info) => {
+//     if (error) {
+//         logger.error("Error al enviar mail: " + error);
+//     } else {
+//         logger.info("El email fue enviado correctamente: %s", informacion.messageId);
+//         logger.info("Vista previa a URL: %s", nodemailer.getTestMessageUrl(informacion));
+//     }
+// });
 
 const desloguearse = async (solicitud, respuesta) => {
     try {
