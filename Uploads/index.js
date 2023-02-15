@@ -1,12 +1,7 @@
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Ruta Autenticacion |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
 import passport from "passport";
 import { Router } from "express";
 import { estaAutenticado } from "../../Middlewares/index.js";
-import { logger } from '../../Configuracion/logger.js';
-import { subirImg } from '../../Utilidades/index.js';
-import { controladorAutenticacion } from "../../Controladores/index.js";
 
 const ruta = Router();
 
@@ -27,30 +22,42 @@ ruta.post("/login", passport.authenticate("login", { failureRedirect: "/api/aute
     }
 );
 
-
 // Registrarse
 ruta.get("/signup", estaAutenticado, (solicitud, respuesta) => {
     respuesta.render("view/signup");
 });
 
-ruta.post("/signup", subirImg.single('avatar'), passport.authenticate("signup", {
-    successRedirect: "/api/autenticacion",
-    failureRedirect: "/api/autenticacion/error-signup"
+ruta.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/api/autenticacion', failureRedirect: '/api/autenticacion/error-signup'
 }));
 
 
 // Cerrar Sesion
-ruta.get("/logout", controladorAutenticacion.desloguearse);
+ruta.get("/logout", (solicitud, respuesta) => {
+    try {
+        const { email } = solicitud.user;
+
+        solicitud.logout(error => {
+            if (error) {
+                respuesta.send(`${error}, Error al desloguearse`);
+            } else {
+                respuesta.render('view/logout', { email });
+            }
+        });
+    } catch (error) {
+        respuesta.send(`${error}, Error en el logout`);
+    }
+});
 
 
 // Rutas Errores
 ruta.get("/error-login", (solicitud, respuesta) => {
-    logger.error("Error en login")
+    console.log("Error en login")
     respuesta.render("view/error-login", {});
 });
 
 ruta.get("/error-signup", (solicitud, respuesta) => {
-    logger.error("Error en signup")
+    console.log("Error en signup")
     respuesta.render("view/error-signup", {});
 });
 

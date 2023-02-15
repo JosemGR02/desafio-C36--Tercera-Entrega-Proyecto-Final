@@ -9,7 +9,6 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import cluster from 'cluster';
 import _yargs from 'yargs';
-import multer from 'multer';
 import { hideBin } from 'yargs/helpers';
 const yargs = _yargs(hideBin(process.argv));
 import { INFO_UTILS } from './Utilidades/index.js';
@@ -54,11 +53,9 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('/public'))
-// app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/uploads'));
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + 'uploads'));
 
-// app.use(express.static(path.join(__dirname + '/public')));
 
 // Yargs
 const args = yargs
@@ -94,25 +91,6 @@ app.use('/api/carrito', RutaCarrito);
 app.use('/api/productos', RutaProducto);
 // app.use('/api/imgs', RutaInexistente)
 app.use('/api/*', RutaInexistente)
-
-
-// const upload = multer({ dest : './public/data/uploads/'}) 
-// ./public/imgGuardadas/uploads
-
-// Multer
-const myStorage = multer.diskStorage({
-    destination: (solicitud, file, cb) => {
-        cb(null, 'uploads')  // tmp/my-uploads
-    },
-    filename: (solicitud, file, cb) => {
-        const nombreArchivo = `${Date.now()}-${file.originalname}`
-        cb(null, nombreArchivo);
-    }
-})
-
-export const subirImg = multer({ storage: myStorage })
-// multer({ dest: 'uploads/' })
-
 
 
 // Modo de ejecucion 
@@ -170,8 +148,5 @@ if (process.env.MODO_CLUSTER == true) {  // args.modo == 'CLUSTER'
 
 
 
-
-
-
-
-
+// app.use(express.static('/public'))
+// app.use(express.static(path.join(__dirname + '/public')));

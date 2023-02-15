@@ -3,22 +3,19 @@
     <h2> PAGINA REGISTRO </h2>
     <br>
     <div class="alert alert-success" role="alert">
-        <form action="/api/autenticacion/signup" method="post" onsubmit="process(evento)" id="login" enctype="multipart/form-data">
+        <form action="/api/autenticacion/signup" method="post" id="login" onsubmit="process(evento)" enctype="multipart/form-data">
             <div>
                 <h3>Ingrese sus datos para poder registrarse</h3>
                 <br>
                 <input type="text" name="nombre" placeholder="Ingrese su nombre" required>
-                <input type="email" name="email" placeholder="Ingrese su email" required>
-                <input type="password" name="contraseña" placeholder="Ingrese su contraseña" required>
+                <input type="email" name="usuario" placeholder="Ingrese su email" required>
+                <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required>
                 <input type="number" name="edad" placeholder="Ingrese su edad" required>
                 <input type="text" name="direccion" placeholder="Ingrese su direccion" required>
-                <br>
-                <input id="telefono" type="tel" name="telefono" placeholder="Ingrese su N° de telefono" required/>
-                <input type="submit" class="btn" value="Verify"/>
+                <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su N° de telefono" required/>
                 <br>
                 <div class="alert alert-info" style="display: none;"></div>
-                <br>
-                <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
             </div>
             <br>
             <button class="btn btn-primary" type="submit">Ingresar</button>
@@ -32,10 +29,11 @@
 
 <script>
     import intlTelInput from 'intl-tel-input';
+    import { DaoUsuario } from '../../Dao/index.js';
 
-    const inputEntradaTel = document.querySelector("#telefono");
+    const inputTelefono = document.querySelector("#telefono");
 
-    const inputTelefono = window.intlTelInput(inputEntradaTel, {
+    const numeroTelefono = window.intlTelInput(inputTelefono, {
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         preferredCountries: ["ar", "co", "es", "de"]
     });
@@ -45,14 +43,10 @@
     function process(evento) {
         evento.preventDefault();
 
-        const numeroTelefono = inputTelefono.getNumber();
+        // const numeroTelefono = inputTelefono.getNumber();
+        const numeroTelefono = await DaoUsuario.obtenerTelefono({'numero': numeroTelefono});
 
         info.style.display = "";
         info.innerHTML = `Su numero de telefono en el formato E.164: <strong>${numeroTelefono}</strong>`;
     }
-
-    
-    // const numeroTelUsuario = await DaoUsuario.obtenerNumero({ 'telefono': telefono });
 </script>
-
-

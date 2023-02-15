@@ -23,7 +23,7 @@ class ContenedorMongoBD {
     }
 
     async obtenerUno(opciones) {
-        const respuesta = await this.model.findById(opciones).lean().exec();
+        const respuesta = await this.model.findOne(opciones).lean().exec();
 
         return respuesta;
     }

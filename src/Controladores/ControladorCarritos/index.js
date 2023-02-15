@@ -10,8 +10,7 @@ import { DaoCarrito } from '../../Dao/index.js';
 const procesarPedido = async (solicitud, respuesta, next) => {
     try {
         const id = solicitud.params.id;
-        // const carritoId = solicitud.user.carrito;
-        const carritoId = solicitud.usuario.carrito;
+        const carritoId = solicitud.user.carrito; // usuario
 
         logger.info({ carritoId });
 
@@ -35,7 +34,7 @@ const procesarPedido = async (solicitud, respuesta, next) => {
                     from: "Remitente",
                     to: config.EMAIL.USUARIO,
                     subject: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
-                    text: `Productos solicitados por el usuario: ``````${carrito.productos}```````  //pedidocompra
+                    text: `Productos solicitados por el usuario: ${carrito.productos}`
                 };
 
                 let info = transporter.sendMail(envioEmail, (error, info) => {

@@ -2,8 +2,8 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Controlador Productos |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 import { DaoProducto } from "../../Dao/index.js";
-import { FECHA_UTILS, ERRORES_UTILS, JOI_VALIDADOR, LOGGER_UTILS, logger } from "../../Utilidades/index.js";
-
+import { FECHA_UTILS, ERRORES_UTILS, JOI_VALIDADOR, LOGGER_UTILS } from "../../Utilidades/index.js";
+import { logger } from '../../Configuracion/logger.js';
 
 
 const obtenerTodos = async (solicitud, respuesta) => {

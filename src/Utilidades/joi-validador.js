@@ -1,5 +1,8 @@
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Joi validador |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 import joi from "joi";
+
 
 const productoJoi = joi.object({
     titulo: joi.string().min(4).max(45).required(),

@@ -1,0 +1,19 @@
+
+
+<div>
+    <h2> REGISTRARSE </h2>
+    <br>
+    <div class="alert alert-success" role="alert">
+        <form action="/api/autenticacion/signup" method="post">
+            <input type="text" name="email" placeholder="Ingrese su email" required>
+            <input type="text" name="contraseña" placeholder="Ingrese su contraseña" required>
+            <br>
+            <button class="btn btn-primary" type="submit">Ingresar</button>
+        </form>
+        <hr>
+        <div>
+            <button class="btn btn-success" onclick="location.href='/api/autenticacion/login'">Iniciar sesion</button>
+        </div>
+    </div>
+</div>
+
