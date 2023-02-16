@@ -5,13 +5,13 @@ import { Schema } from "mongoose";
 const ColeccionUsuarios = "usuarios";
 
 const esquemaUsuario = new Schema({
-    nombre: { type: String, required: true, max: 40 },
-    edad: { type: Number, required: true, max: 3 },
-    usuario: { type: String, required: true, unique: true, max: 30 },
-    contrasena: { type: String, required: true, max: 30 },
-    telefono: { type: Number, required: true, max: 20 },
-    direccion: { type: String, required: true, max: 40 },
-    avatar: { type: String, required: true, max: 150 },
+    nombre: { type: String, required: true },
+    edad: { type: Number, required: true },
+    usuario: { type: String, required: true, unique: true },
+    contrasena: { type: String, required: true },
+    telefono: { type: Number, required: true },
+    direccion: { type: String, required: true, },
+    avatar: { type: String, required: true, },
 });
 
 esquemaUsuario.set("toJSON", {

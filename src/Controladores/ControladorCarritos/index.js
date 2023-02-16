@@ -3,18 +3,18 @@
 
 import { transporter, client } from '../../Servicios/index.js';
 import { logger } from '../../Configuracion/logger.js';
-import { DaoCarrito } from '../../Dao/index.js';
+// import { DaoCarrito } from '../../Dao/index.js';
 
 
 
 const procesarPedido = async (solicitud, respuesta, next) => {
     try {
-        const id = solicitud.params.id;
-        const carritoId = solicitud.user.carrito; // usuario
+        // const id = solicitud.params.id;
+        const carrito = solicitud.body; // usuario
 
-        logger.info({ carritoId });
+        logger.info({ carrito });
 
-        const carrito = await DaoCarrito.obtenerCarritoXid(id);
+        // const carrito = await DaoCarrito.obtenerCarritoXid(id);
 
         if (carrito == carrito.length === 0) logger.warn("El carrito seleccionado no tiene productos todavia")
 
