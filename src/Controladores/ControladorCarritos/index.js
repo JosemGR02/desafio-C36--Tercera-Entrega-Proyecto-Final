@@ -3,38 +3,42 @@
 
 import { transporter, client } from '../../Servicios/index.js';
 import { logger } from '../../Configuracion/logger.js';
+import { config } from '../../Configuracion/config.js';
 // import { DaoCarrito } from '../../Dao/index.js';
 
 
 
 const procesarPedido = async (solicitud, respuesta, next) => {
     try {
+        const pedido = solicitud.body;
+
+        logger.info({ pedido });
+
         // const id = solicitud.params.id;
-        const carrito = solicitud.body; // usuario
-
-        logger.info({ carrito });
-
         // const carrito = await DaoCarrito.obtenerCarritoXid(id);
 
-        if (carrito == carrito.length === 0) logger.warn("El carrito seleccionado no tiene productos todavia")
-
-        if (!carrito) {
-            throw new Error('El carrito eleccionado no existe');
+        if (pedido.length === 0) logger.warn("El carrito seleccionado no tiene productos todavia")
+        if (!pedido) {
+            throw new Error('El carrito seleccionado no existe');
         }
 
-        if (solicitud.isAuthenticated()) {
-            if (carrito.usuario.nombre === solicitud.user.nombre) {
-                let mensaje = "El carrito contiene: "
-                const pedidocompra = carrito.forEach(producto => { mensaje += `${producto},` });
+        let mensaje = "El carrito contiene: "
+        const pedidoCompra = pedido.forEach(producto => { mensaje += `${producto},` });
 
-                logger.info({ mensaje });
+        logger.info({ mensaje });
+
+        if (solicitud.isAuthenticated()) {
+            if (solicitud.user.nombre) {  // carrito.usuario.nombre === solicitud.usuario.nombre 
+
+                carrito.usuario.nombre = solicitud.user.nombre;
+                carrito.usuario.email = solicitud.user.usuario;
 
                 // envio Email
                 let envioEmail = {
                     from: "Remitente",
                     to: config.EMAIL.USUARIO,
-                    subject: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
-                    text: `Productos solicitados por el usuario: ${carrito.productos}`
+                    subject: `Nuevo pedido: ${pedidoCompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                    text: `Productos solicitados por el usuario: ${pedidoCompra}`
                 };
 
                 let info = transporter.sendMail(envioEmail, (error, info) => {
@@ -57,7 +61,7 @@ const procesarPedido = async (solicitud, respuesta, next) => {
 
                 // envio Whatsapp
                 const envioWhatsapp = await client.messages.create({
-                    body: `Nuevo pedido: ${pedidocompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                    body: `Nuevo pedido: ${pedidoCompra}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
                     from: config.WHATSAPP.NRO_TWILIO,
                     to: `whatsapp:${carrito.usuario.telefono}`
                 });
@@ -65,7 +69,7 @@ const procesarPedido = async (solicitud, respuesta, next) => {
                 logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
 
                 logger.info('Pedido procesado con exito')
-                respuesta.render('view/home', { pedidocompra });
+                respuesta.render('view/home', { pedidoCompra });
             } else {
                 throw new Error("El carrito seleccionado no pertenece a tu usuario");
             }

@@ -15,14 +15,14 @@
                 <input type="file" name="avatar" placeholder="Ingrese su foto/avatar" required/>
                 <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su N° de telefono" required/>
                 <br> 
-                <div class="alert alert-info" style="display: none;"></div>
+                <div class="alert alert-primary" style="display: none;"></div>
             </div>
             <br>
-            <button class="btn btn-primary" type="submit">Ingresar</button>
+            <button class="btn btn-success" type="submit">Ingresar</button>
         </form>
         <br>
         <div>
-            <button class="btn btn-success" onclick="location.href='/api/autenticacion/login'">Iniciar sesion</button>
+            <button class="btn btn-warning" onclick="location.href='/api/autenticacion/login'">Iniciar sesion</button>
         </div>
     </div>
 </div>
@@ -50,3 +50,5 @@
         info.innerHTML = `Su numero de telefono en el formato E.164: <strong>${numeroTelefono}</strong>`;
     }
 </script>
+
+

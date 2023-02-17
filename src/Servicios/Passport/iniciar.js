@@ -33,7 +33,7 @@ const iniciar = () => {
         passReqToCallback: true,
     }, async (solicitud, usuario, contrasena, done) => {
         try {
-            const usuario = await DaoUsuario.obtenerUno({ 'email': usuario });
+            const usuario = await DaoUsuario.obtenerUno({ 'usuario': usuario });
             if (!usuario) {
                 logger.info("No se encontro el usuario con el usuario " + usuario);
                 return done(null, false);
@@ -64,7 +64,7 @@ const iniciar = () => {
 
             logger.info({ status: 'imagen subida correctamente!', link: __dirname + '/public/Uploads/' + file.filename });
 
-            const usuarioYaExiste = await DaoUsuario.obtenerUno({ 'email': usuario });
+            const usuarioYaExiste = await DaoUsuario.obtenerUno({ 'usuario': usuario });
 
             if (usuarioYaExiste) {
                 logger.info('El usuario ya existe con el email de: ' + usuario);
@@ -72,8 +72,8 @@ const iniciar = () => {
             } else {
                 const nuevoUsuario = {
                     nombre: nombre,
-                    email: usuario,
-                    contraseña: BCRYPT_VALIDADOR.crearContraHash(contrasena),
+                    usuario: usuario,
+                    contrasena: BCRYPT_VALIDADOR.crearContraHash(contrasena),
                     edad: edad,
                     telefono: telefono,
                     direccion: direccion,
@@ -86,7 +86,7 @@ const iniciar = () => {
                 const envioEmail = {
                     from: "Remitente",
                     to: config.EMAIL.USUARIO,
-                    subject: `Nuevo registro, usuario: ${usuarioCreado.nombre}, ${usuarioCreado.email}`,
+                    subject: `Nuevo registro, usuario: ${usuarioCreado.nombre}, ${usuarioCreado.usuario}`,
                     text: `Hay un nuevo usuario registrado: ${usuarioCreado.nombre}`
                 };
 

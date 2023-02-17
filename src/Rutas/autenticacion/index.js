@@ -38,6 +38,20 @@ ruta.post("/signup", subirImg.single('avatar'), passport.authenticate("signup", 
     failureRedirect: "/api/autenticacion/error-signup"
 }));
 
+// , (solicitud, respuesta) => {
+//     try {
+//         const datosUsuario = solicitud.user;
+
+//         if (datosUsuario) {
+//             logger.error('No hay datos de usuario');
+//         } else {
+//             respuesta.render('view/home', { datosUsuario });
+//         }
+//     } catch (error) {
+//         respuesta.send(`${error}, Error en el Signup`);
+//     }
+// }
+// controladorAutenticacion.registro
 
 // Cerrar Sesion
 ruta.get("/logout", controladorAutenticacion.desloguearse);
