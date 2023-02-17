@@ -89,7 +89,6 @@ app.use('/api/autenticacion', RutAutenticacion);
 
 app.use('/api/carrito', RutaCarrito);
 app.use('/api/productos', RutaProducto);
-// app.use('/api/imgs', RutaInexistente)
 app.use('/api/*', RutaInexistente)
 
 
