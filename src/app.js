@@ -53,8 +53,8 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + 'uploads'));
+app.use(express.static('/public'));
+app.use('/public/Uploads', express.static('public/Uploads'));
 
 
 // Yargs
@@ -137,15 +137,3 @@ if (process.env.MODO_CLUSTER == true) {  // args.modo == 'CLUSTER'
     })
     app.on("error", (error) => logger.error(`Error en servidor ${error}`));
 }
-
-
-
-
-
-
-
-
-
-
-// app.use(express.static('/public'))
-// app.use(express.static(path.join(__dirname + '/public')));

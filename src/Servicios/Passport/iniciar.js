@@ -94,8 +94,8 @@ const iniciar = () => {
                     if (error) {
                         logger.error("Error al enviar email: " + error);
                     } else {
-                        logger.info("El email fue enviado correctamente: %s", info.messageId);
-                        logger.info("Vista previa a URL: %s", nodemailer.getTestMessageUrl(info));
+                        logger.info(`El email: nuevo usuario, fue enviado correctamente: ${info.messageId}`);
+                        logger.info(`Vista previa a URL: ${nodemailer.getTestMessageUrl(info)}`);
                     }
                 });
 

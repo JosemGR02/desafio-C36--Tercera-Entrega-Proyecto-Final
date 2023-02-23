@@ -8,24 +8,13 @@
         <div>
             <h3> DATOS DEL USUARIO: </h3>
             <ul>        
-                <li>{{avatar}}</li>
-                <img src="../../Uploads/1676660016044-1.webp" width="60" height="80">
+                <img src="/{{avatar}}" width="160" height="160">
                 <li>Nombre: {{nombre}}</li>
                 <li>Email: {{usuario}}</li>
                 <li>Edad: {{edad}}</li>
                 <li>Telefono: {{telefono}}</li>
                 <li>Direccion: {{direccion}}</li>
-                <li>Contraseña: {{contrasena}}</li>
             </ul>
-            <div>
-                <h4>Productos del carrito:</h4>
-                {{!-- {{carrito}} --}}
-                <ul>
-                    {{#each carrito}}
-                    <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-            </div>
         </div>
         <br>
         <div>

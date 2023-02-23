@@ -16,6 +16,17 @@
         </form>
     </div>
     <div>
+        <h4>Productos del carrito:</h4>
+        {{!-- {{carrito}} --}}
+        {{#if carrito}}
+            <ul>
+                {{#each carrito}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+    <div>
         <button class="btn btn-primary" onclick="location.href='/api/randoms/'">Ir a pagina de Nros randoms</button>
 
         <button class="btn btn-secondary" onclick="location.href='/api/info/'">Ir a pagina de informacion</button>
