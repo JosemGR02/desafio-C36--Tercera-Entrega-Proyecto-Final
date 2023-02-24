@@ -9,7 +9,7 @@ const LoggerDao = new ContenedorFileSystem("logs");
 
 const addLog = async (error) => {
     const log = { timestamp: FECHA_UTILS.getTimestamp(), message: error };
-    await LoggerDao.save(log);
+    await LoggerDao.guardar(log);
 };
 
 export const LOGGER_UTILS = { addLog };

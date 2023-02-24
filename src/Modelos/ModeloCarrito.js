@@ -5,8 +5,9 @@ const ColeccionCarrito = "carrito";
 
 const CarritoEsquema = new Schema(
     {
-        timestamp: { type: String, required: true, max: 100 },
-        usuario: { type: String, required: true },
+        id: Schema.Types.ObjectId,
+        timestamp: { type: Date, default: Date.now },
+        usuario: { type: Schema.Types.ObjectId, ref: 'usuarios' },
         productos: [{ type: Schema.Types.ObjectId, ref: "productos" }],
     },
     {

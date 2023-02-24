@@ -24,7 +24,7 @@ const obtenerCarritoXid = async (solicitud, respuesta) => {
 
 const crearCarrito = async (solicitud, respuesta) => {
     try {
-        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), productos: [] };
+        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), usuario: {}, productos: [] };
 
         const nuevoCarrito = await DaoCarrito.guardar(carritoBase);
 
@@ -72,7 +72,7 @@ const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
 
             if (!listadoProductos) return respuesta.send({ error: true, mensaje: "No se encontraron los productos solicitados" });
 
-            respuesta.send({ success: true, productos: carrito.productos });
+            respuesta.send({ success: true, productos: listadoProductos }); //carrito.productos
         }
     } catch (error) {
         respuesta.send({ error: "Error al obtener la lista los productos del carrito" })
@@ -115,88 +115,152 @@ const eliminarCarritoXid = async (solicitud, respuesta) => {
     }
 };
 
-const procesarPedido = async (solicitud, respuesta, next) => {
+const procesarPedido = async (solicitud, respuesta) => {
     try {
-        const carritoCheckbooks = solicitud.body;
+        const { carritoId } = solicitud.params;
 
-        logger.info({ ...carritoCheckbooks });
+        const carrito = await DaoCarrito.obtenerXid(carritoId);
 
-        if (carritoCheckbooks.length === 0) logger.warn({ mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO })
-        if (!carritoCheckbooks) {
-            throw new Error({ mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
-        }
+        if (!carrito) return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
+        if (carrito.length === 0) logger.warn({ mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO })
+
+        logger.info(carrito.productos)
 
         if (solicitud.isAuthenticated()) {
 
             const usuarioCarrito = solicitud.user;
-            // solicitud.user.nombre || solicitud.user; =>
 
-            // carrito.usuario.nombre
-            // carrito.usuario.email
-            // carrito.usuario.telefono
-            // carrito.productos
+            carrito.usuario = usuarioCarrito;
 
-            const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), usuario: {}, productos: [] };
+            // envio Email
+            let envioEmail = {
+                from: "Remitente",
+                to: config.EMAIL.USUARIO,
+                subject: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                text: `Productos solicitados por el usuario: ${carrito.productos}`
+            };
 
-            carritoBase.productos.push({ ...carritoCheckbooks.productos });
+            let info = transporter.sendMail(envioEmail, (error, info) => {
+                if (error) {
+                    logger.error("Error al enviar mail: " + error);
+                } else {
+                    logger.info(`El email: nuevo pedido, fue enviado correctamente: ${info.messageId}`);
+                    logger.info(`Vista previa a URL: ${nodemailer.getTestMessageUrl(info)}`);
+                }
+            });
 
-            // carritoBase.usuario.push(usuarioCarrito);
-            carritoBase.usuario = usuarioCarrito;
+            // envio SMS
+            const envioSMS = await client.messages.create({
+                body: "Su pedido ya ha sido recibido y esta en proceso",
+                from: config.WHATSAPP.NRO_TWILIO,
+                to: carrito.usuario.telefono
+            });
 
-            const carrito = await DaoCarrito.guardar(carritoBase);
+            logger.info(`Mensaje SMS enviado correctamente ${envioSMS}`);
 
-            logger.info(`Carrito guardado con exito, ${carrito}`);
+            // envio Whatsapp
+            const envioWhatsapp = await client.messages.create({
+                body: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+                from: config.WHATSAPP.NRO_TWILIO,
+                to: `whatsapp:${carrito.usuario.telefono}`
+            });
 
-            if (carrito.usuario.nombre === solicitud.user.nombre) {
+            logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
 
-                // envio Email
-                let envioEmail = {
-                    from: "Remitente",
-                    to: config.EMAIL.USUARIO,
-                    subject: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
-                    text: `Productos solicitados por el usuario: ${carrito.productos}`
-                };
-
-                let info = transporter.sendMail(envioEmail, (error, info) => {
-                    if (error) {
-                        logger.error("Error al enviar mail: " + error);
-                    } else {
-                        logger.info(`El email: nuevo pedido, fue enviado correctamente: ${info.messageId}`);
-                        logger.info(`Vista previa a URL: ${nodemailer.getTestMessageUrl(info)}`);
-                    }
-                });
-
-                // envio SMS
-                const envioSMS = await client.messages.create({
-                    body: "Su pedido ya ha sido recibido y esta en proceso",
-                    from: config.WHATSAPP.NRO_TWILIO,
-                    to: carrito.usuario.telefono
-                });
-
-                logger.info(`Mensaje SMS enviado correctamente ${envioSMS}`);
-
-                // envio Whatsapp
-                const envioWhatsapp = await client.messages.create({
-                    body: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
-                    from: config.WHATSAPP.NRO_TWILIO,
-                    to: `whatsapp:${carrito.usuario.telefono}`
-                });
-
-                logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
-
-                logger.info('Pedido procesado con exito')
-                respuesta.render('view/home', { carrito: carrito.productos });
-            } else {
-                throw new Error("El carrito seleccionado no pertenece a tu usuario");
-            }
-
+            logger.info('Pedido procesado con exito')
+            respuesta.render('view/home', { carrito: carrito.productos });
         } else {
             throw new Error("Debes estar autenticado para enviar pedidos");
         }
     } catch (error) {
-        next(error);
+        respuesta.send({ error: "Error al procesar el pedido de compra" })
     }
 }
+
+
+
+// const procesarPedido = async (solicitud, respuesta, next) => {
+//     try {
+//         const carritoCheckbooks = solicitud.body;
+
+//         logger.info({ ...carritoCheckbooks });
+
+//         if (carritoCheckbooks.length === 0) logger.warn({ mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO })
+//         if (!carritoCheckbooks) {
+//             throw new Error({ mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
+//         }
+
+//         if (solicitud.isAuthenticated()) {
+
+//             const usuarioCarrito = solicitud.user;
+//             // solicitud.user.nombre || solicitud.user; =>
+
+//             // carrito.usuario.nombre
+//             // carrito.usuario.email
+//             // carrito.usuario.telefono
+//             // carrito.productos
+
+//             const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), usuario: {}, productos: [] };
+
+//             carritoBase.productos.push({ ...carritoCheckbooks.productos });
+
+//             // carritoBase.usuario.push(usuarioCarrito);
+//             carritoBase.usuario = usuarioCarrito;
+
+//             const carrito = await DaoCarrito.guardar(carritoBase);
+
+//             logger.info(`Carrito guardado con exito, ${carrito}`);
+
+//             if (carrito.usuario.nombre === solicitud.user.nombre) {
+
+//                 // envio Email
+//                 let envioEmail = {
+//                     from: "Remitente",
+//                     to: config.EMAIL.USUARIO,
+//                     subject: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+//                     text: `Productos solicitados por el usuario: ${carrito.productos}`
+//                 };
+
+//                 let info = transporter.sendMail(envioEmail, (error, info) => {
+//                     if (error) {
+//                         logger.error("Error al enviar mail: " + error);
+//                     } else {
+//                         logger.info(`El email: nuevo pedido, fue enviado correctamente: ${info.messageId}`);
+//                         logger.info(`Vista previa a URL: ${nodemailer.getTestMessageUrl(info)}`);
+//                     }
+//                 });
+
+//                 // envio SMS
+//                 const envioSMS = await client.messages.create({
+//                     body: "Su pedido ya ha sido recibido y esta en proceso",
+//                     from: config.WHATSAPP.NRO_TWILIO,
+//                     to: carrito.usuario.telefono
+//                 });
+
+//                 logger.info(`Mensaje SMS enviado correctamente ${envioSMS}`);
+
+//                 // envio Whatsapp
+//                 const envioWhatsapp = await client.messages.create({
+//                     body: `Nuevo pedido: ${carrito.productos}, de: ${carrito.usuario.nombre}, ${carrito.usuario.email}`,
+//                     from: config.WHATSAPP.NRO_TWILIO,
+//                     to: `whatsapp:${carrito.usuario.telefono}`
+//                 });
+
+//                 logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
+
+//                 logger.info('Pedido procesado con exito')
+//                 respuesta.render('view/home', { carrito: carrito.productos });
+//             } else {
+//                 throw new Error("El carrito seleccionado no pertenece a tu usuario");
+//             }
+
+//         } else {
+//             throw new Error("Debes estar autenticado para enviar pedidos");
+//         }
+//     } catch (error) {
+//         next(error);
+//     }
+// }
 
 export const controladorCarritos = {
     obtenerCarritoXid,

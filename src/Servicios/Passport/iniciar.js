@@ -98,6 +98,7 @@ const iniciar = () => {
                         logger.info(`Vista previa a URL: ${nodemailer.getTestMessageUrl(info)}`);
                     }
                 });
+                logger.info(info)
 
                 return done(null, usuarioCreado);
             }
