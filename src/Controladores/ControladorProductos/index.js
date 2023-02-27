@@ -48,24 +48,18 @@ const crearProducto = async (solicitud, respuesta) => {
     }
 };
 
-const actualizarProdXid = async (solicitud, respuesta, next) => {
-    const { id } = solicitud.params
-    const { titulo, precio, imagen } = solicitud.body
-    daoProductos.actualizar({ titulo, precio, imagen }, Number(id))
-    respuesta.json({ datos: { titulo, precio, imagen } })
-}
-
-
 const actualizarProducto = async (solicitud, respuesta) => {
     try {
         const { productoId } = solicitud.params;
 
-        // const producto = await DaoProducto.obtenerXid(productoId);
-        // if (!producto) return respuesta.send({ error: "Error, no se encontro el producto" })
-
         const { titulo, descripcion, stock, codigo, precio, imagen } = solicitud.body
 
-        const productoActualizado = await DaoProducto.actualizar({ titulo, precio, imagen, descripcion, stock, codigo }, (productoId))
+        const productoValidado = await JOI_VALIDADOR.productoJoi.validateAsync({
+            titulo, descripcion, codigo, imagen, precio, stock,
+        });
+
+        const productoActualizado = await DaoProducto.actualizar({ productoValidado }, (productoId)) //(id, product)
+
         respuesta.send({ success: true, mensaje: "Se actualizo el producto correctamente", producto: productoActualizado })
 
     } catch (error) {

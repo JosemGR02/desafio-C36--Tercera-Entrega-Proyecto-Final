@@ -39,13 +39,6 @@ class ContenedorMongoBD {
         const respuesta = await this.collection.findByIdAndDelete(id);
         return respuesta;
     }
-
-    async obtenerTelefono(numero) {
-        // const respuesta = await this.model.findOne(numero).lean().exec();
-        const respuesta = await this.model.find(usuario => usuario.telefono == numero);
-        // const respuesta = await this.model.find(telefono => usuario.telefono == numero);
-        return respuesta;
-    }
 }
 
 export { ContenedorMongoBD };

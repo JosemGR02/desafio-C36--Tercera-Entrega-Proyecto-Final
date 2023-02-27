@@ -3,6 +3,7 @@
 
 import passport from "passport";
 import __dirname from '../../dirname.js';
+import nodemailer from 'nodemailer';
 import { Strategy as LocalStrategy } from "passport-local";
 import { BCRYPT_VALIDADOR, ERRORES_UTILS } from '../../Utilidades/index.js';
 import { DaoUsuario } from "../../Dao/index.js";
