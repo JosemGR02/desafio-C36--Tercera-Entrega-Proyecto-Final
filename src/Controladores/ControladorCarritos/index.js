@@ -27,11 +27,11 @@ const obtenerCarritoXid = async (solicitud, respuesta) => {
 
 const crearCarrito = async (solicitud, respuesta) => {
     try {
-        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), usuario: {}, productos: [] };
+        const carritoBase = { timestamp: FECHA_UTILS.getTimestamp(), usuario: [], productos: [] };
 
         const nuevoCarrito = await DaoCarrito.guardar(carritoBase);
 
-        respuesta.send({ success: true, carritoId: nuevoCarrito.id });
+        respuesta.send({ success: true, carritoId: nuevoCarrito });
     } catch (error) {
         respuesta.send(`${error}, Error al crear el carrito`);
     }
@@ -64,26 +64,28 @@ const guardarProdsCarrito = async (solicitud, respuesta) => {
 };
 
 
-// const actualizarProdsCarrito = async (solicitud, respuesta) => {
-//     try {
-//         const { carritoId } = solicitud.params;
-//         const { productoId } = solicitud.body;
+const actualizarProdsCarrito = async (solicitud, respuesta) => {
+    try {
+        const { carritoId } = solicitud.params;
+        const { productoId } = solicitud.body;
 
-//         const carrito = await DaoCarrito.obtenerXid(carritoId);
+        const carrito = await DaoCarrito.obtenerXid(carritoId);
 
-//         if (!carrito)
-//             return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
+        if (!carrito)
+            return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
 
-//         carrito.productos = carrito.productos.filter((producto) => producto.id != productoId);
+        const producto = await DaoProducto.obtenerXid(productoId);
+        if (!producto) return respuesta.send({ error: "Error, no se encontro el producto" })
 
-//         const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
+        carrito.productos.push(producto)
 
-//         respuesta.send({ success: true, carrito: carritoActualizado });
-//     } catch (error) {
-//         respuesta.send(`${error}, Error al guardar un producto al carrito`);
-//     }
-// };
+        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
 
+        respuesta.send({ success: true, carrito: carritoActualizado });
+    } catch (error) {
+        respuesta.send(`${error}, Error al actualizar un producto al carrito`);
+    }
+};
 
 const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
     try {
@@ -93,11 +95,11 @@ const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
         if (!carrito) { respuesta.send({ error: "Error, no se encontro el carrito" }) }
 
         else {
-            const listadoProductos = await DaoProducto.obtenerTodos();
+            const listadoProductos = carrito.productos;
 
             if (!listadoProductos) return respuesta.send({ error: true, mensaje: "No se encontraron los productos solicitados" });
 
-            respuesta.send({ success: true, productos: listadoProductos }); //carrito.productos
+            respuesta.send({ success: true, productos: listadoProductos });
         }
     } catch (error) {
         respuesta.send(`${error}, Error al obtener la lista los productos del carrito`);
@@ -193,6 +195,8 @@ const procesarPedido = async (solicitud, respuesta) => {
             logger.info(`Mensaje SMS enviado correctamente ${envioWhatsapp}`);
 
             logger.info('Pedido procesado con exito')
+            logger.info(carrito)
+
             respuesta.render('view/home', { carrito: carrito.productos });
         } else {
             throw new Error("Debes estar autenticado para enviar pedidos");
@@ -204,11 +208,22 @@ const procesarPedido = async (solicitud, respuesta) => {
 
 
 export const controladorCarritos = {
-    obtenerCarritoXid,
     crearCarrito,
-    obtenerTodosProdsCarrito,
+    obtenerCarritoXid,
     guardarProdsCarrito,
+    obtenerTodosProdsCarrito,
+    actualizarProdsCarrito,
     eliminarProdCarrito,
     eliminarCarritoXid,
     procesarPedido
 };
+
+
+
+
+
+
+
+
+
+

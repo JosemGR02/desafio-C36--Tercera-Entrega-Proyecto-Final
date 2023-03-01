@@ -12,9 +12,11 @@ ruta.get("/:id", controladorProductos.obtenerXid);
 
 ruta.post("/", controladorProductos.crearProducto);
 
-ruta.get("/:id", controladorProductos.actualizarProducto);
+ruta.put("/:id", controladorProductos.actualizar);
 
 ruta.delete("/:id", controladorProductos.eliminarXid);
+
+ruta.delete("/", controladorProductos.eliminarTodos);
 
 export { ruta as RutaProducto };
 

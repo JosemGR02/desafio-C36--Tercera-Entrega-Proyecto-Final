@@ -78,7 +78,6 @@ app.engine("hbs", handlebars.engine({ extname: ".hbs", defaultLayout: "main.hbs"
 
 app.set('view engine', 'hbs')
 app.set('views', './public/Vistas');
-// app.set('views', __dirname + "/Vistas");
 
 
 // Rutas 
@@ -86,7 +85,6 @@ app.use('/api/', RutaServidor)
 app.use('/api/info', RutaInfo)
 app.use('/api/randoms', RutaRandoms)
 app.use('/api/autenticacion', RutAutenticacion);
-
 app.use('/api/carrito', RutaCarrito);
 app.use('/api/productos', RutaProducto);
 app.use('/api/*', RutaInexistente)

@@ -1,5 +1,7 @@
 
+
 import mongoose from "mongoose";
+
 
 class ContenedorMongoBD {
     constructor({ nombre, schema }) {
