@@ -11,7 +11,7 @@ const ProductoEsquema = new Schema(
         imagen: { type: String, required: true, max: 150 },
         precio: { type: Number, required: true },
         stock: { type: Number, required: true, default: 1 },
-        timestamp: { type: String, required: true, max: 100 },
+        timestamp: { type: String, required: true },
     },
     {
         virtuals: true,

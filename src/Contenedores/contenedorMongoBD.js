@@ -30,16 +30,25 @@ class ContenedorMongoBD {
         return respuesta;
     }
 
+    // async actualizar(id, nuevosDatos) {
+    //     const respuesta = await this.model.findByIdAndUpdate(id, nuevosDatos, {
+    //         new: true,
+    //     });
+    //     return respuesta;
+    // }
+
     async actualizar(id, nuevosDatos) {
-        const respuesta = await this.model.findByIdAndUpdate(id, nuevosDatos, {
-            new: true,
-        });
-        return respuesta;
+        const respuesta = await this.model.findOneAndUpdate({ id: id, $set: nuevosDatos })
+        return respuesta
     }
 
     async eliminarXid(id) {
-        const respuesta = await this.collection.findByIdAndDelete(id);
+        const respuesta = await this.model.findByIdAndDelete(id);
         return respuesta;
+    }
+
+    async eliminarTodos() {
+        await this.model.deleteMany({})
     }
 }
 

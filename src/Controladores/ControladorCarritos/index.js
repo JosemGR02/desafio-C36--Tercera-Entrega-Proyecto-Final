@@ -31,7 +31,7 @@ const crearCarrito = async (solicitud, respuesta) => {
 
         const nuevoCarrito = await DaoCarrito.guardar(carritoBase);
 
-        respuesta.send({ success: true, carritoId: nuevoCarrito });
+        respuesta.send({ success: true, carritoId: nuevoCarrito._id });
     } catch (error) {
         respuesta.send(`${error}, Error al crear el carrito`);
     }
@@ -55,9 +55,11 @@ const guardarProdsCarrito = async (solicitud, respuesta) => {
 
         carrito.productos.push(producto);
 
+        logger.info(producto)
+
         const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
 
-        respuesta.send({ success: true, carrito: carritoActualizado });
+        respuesta.send({ success: true, carrito: carritoActualizado, id: carritoActualizado._id });
     } catch (error) {
         respuesta.send(`${error}, Error al guardar un producto al carrito`);
     }
@@ -117,11 +119,11 @@ const eliminarProdCarrito = async (solicitud, respuesta) => {
             const producto = await DaoProducto.obtenerXid(productoId);
             if (!producto) return respuesta.send({ error: "Error, no se encontro el producto" })
 
-            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === Number(productoId))
+            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === productoId)
             if (elementoEncontradoIndex === -1) return respuesta.send({ error: "Error, no se encontro el producto" })
             carrito.productos.splice(elementoEncontradoIndex, 1)
         }
-        const carritoActualizado = await DaoCarrito.actualizar(Number(carritoId), carrito)
+        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito)
         respuesta.send({ success: true, mensaje: "Se elimino correctamente el producto del carrito", carrito: carritoActualizado })
 
     } catch (error) {

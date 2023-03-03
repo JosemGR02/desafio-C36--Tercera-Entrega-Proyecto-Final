@@ -13,5 +13,301 @@
       "timestamp": "24/2/2023 15:17:08",
       "message": {},
       "id": 3
+   },
+   {
+      "timestamp": "2/3/2023 14:51:09",
+      "message": {
+         "_original": {
+            "titulo": "eeeeeeeeeeeeeeeeeeee",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:51:09"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:51:09",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 4
+   },
+   {
+      "timestamp": "2/3/2023 14:51:18",
+      "message": {
+         "_original": {
+            "titulo": "tattatata",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:51:18"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:51:18",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 5
+   },
+   {
+      "timestamp": "2/3/2023 14:53:03",
+      "message": {
+         "_original": {
+            "titulo": "tyyayayayatata",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:53:03"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:53:03",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 6
+   },
+   {
+      "timestamp": "2/3/2023 14:53:34",
+      "message": {
+         "_original": {
+            "titulo": "tyyayayayatata",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:53:34"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:53:34",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 7
+   },
+   {
+      "timestamp": "2/3/2023 14:53:44",
+      "message": {
+         "_original": {
+            "titulo": "tyyayayayatata",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:53:44"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:53:44",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 8
+   },
+   {
+      "timestamp": "2/3/2023 14:54:08",
+      "message": {
+         "_original": {
+            "titulo": "tyyayayayatata",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 14:54:08"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" must be a number",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "number.base",
+               "context": {
+                  "label": "timestamp",
+                  "value": "2/3/2023 14:54:08",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 9
+   },
+   {
+      "timestamp": "2/3/2023 14:55:05",
+      "message": {},
+      "id": 10
+   },
+   {
+      "timestamp": "2/3/2023 17:23:15",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 17:23:15"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "2/3/2023 17:23:15",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 11
+   },
+   {
+      "timestamp": "2/3/2023 17:24:24",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 17:24:24"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "2/3/2023 17:24:24",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 12
+   },
+   {
+      "timestamp": "2/3/2023 17:43:55",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 17:43:55"
+         },
+         "details": [
+            {
+               "message": "\"descripcion\" is required",
+               "path": [
+                  "descripcion"
+               ],
+               "type": "any.required",
+               "context": {
+                  "label": "descripcion",
+                  "key": "descripcion"
+               }
+            }
+         ]
+      },
+      "id": 13
+   },
+   {
+      "timestamp": "2/3/2023 17:44:26",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "2/3/2023 17:44:26"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "2/3/2023 17:44:26",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 14
    }
 ]

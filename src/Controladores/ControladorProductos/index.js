@@ -54,18 +54,17 @@ const actualizar = async (solicitud, respuesta) => {
 
         const { titulo, descripcion, stock, codigo, precio, imagen } = solicitud.body
 
-
         const productoValidado = await JOI_VALIDADOR.productoJoi.validateAsync({
             titulo, descripcion, codigo, imagen, precio, stock,
         });
         logger.info({ productoValidado })
 
-        const productoActualizado = await DaoProducto.actualizar({ productoValidado }, (productoId))
+        const productoActualizado = await DaoProducto.actualizar({ productoId, productoValidado })
 
-        respuesta.send({ success: true, mensaje: "Se actualizo el producto correctamente", producto: productoActualizado })
+        respuesta.send({ success: true, mensaje: "Se actualizo el producto correctamente", producto: productoActualizado, id: productoActualizado._id })
 
     } catch (error) {
-        respuesta.send({ error: "Error al actualizar un producto" })
+        respuesta.send({ error, error: "Error al actualizar un producto" })
     }
 };
 
