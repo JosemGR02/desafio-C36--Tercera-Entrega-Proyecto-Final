@@ -309,5 +309,521 @@
          ]
       },
       "id": 14
+   },
+   {
+      "timestamp": "3/3/2023 21:10:33",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:10:33"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:10:33",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 15
+   },
+   {
+      "timestamp": "3/3/2023 21:11:12",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:11:12"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:11:12",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 16
+   },
+   {
+      "timestamp": "3/3/2023 21:11:14",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:11:14"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:11:14",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 17
+   },
+   {
+      "timestamp": "3/3/2023 21:11:44",
+      "message": {
+         "_original": {
+            "titulo": "tetetetetet",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:11:44"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:11:44",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 18
+   },
+   {
+      "timestamp": "3/3/2023 21:13:08",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:13:08"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:13:08",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 19
+   },
+   {
+      "timestamp": "3/3/2023 21:14:22",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:14:22"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:14:22",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 20
+   },
+   {
+      "timestamp": "3/3/2023 21:14:47",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:14:47"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:14:47",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 21
+   },
+   {
+      "timestamp": "3/3/2023 21:27:56",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "3/3/2023 21:27:56"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "3/3/2023 21:27:56",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 22
+   },
+   {
+      "timestamp": "4/3/2023 21:18:44",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:18:44"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:18:44",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 23
+   },
+   {
+      "timestamp": "4/3/2023 21:19:09",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:19:09"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:19:09",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 24
+   },
+   {
+      "timestamp": "4/3/2023 21:19:58",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:19:58"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:19:58",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 25
+   },
+   {
+      "timestamp": "4/3/2023 21:22:31",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:22:31"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:22:31",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 26
+   },
+   {
+      "timestamp": "4/3/2023 21:22:33",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:22:33"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:22:33",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 27
+   },
+   {
+      "timestamp": "4/3/2023 21:23:22",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 28
+   },
+   {
+      "timestamp": "4/3/2023 21:31:04",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 29
+   },
+   {
+      "timestamp": "4/3/2023 21:32:30",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 30
+   },
+   {
+      "timestamp": "4/3/2023 21:32:54",
+      "message": {
+         "_original": {
+            "titulo": "uyuywegdhgjjsdh",
+            "descripcion": "pokemon aaaaaaaaaaa",
+            "codigo": "3gfw156g7",
+            "imagen": "https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es",
+            "precio": "60000",
+            "stock": "5",
+            "timestamp": "4/3/2023 21:32:54"
+         },
+         "details": [
+            {
+               "message": "\"timestamp\" is not allowed",
+               "path": [
+                  "timestamp"
+               ],
+               "type": "object.unknown",
+               "context": {
+                  "child": "timestamp",
+                  "label": "timestamp",
+                  "value": "4/3/2023 21:32:54",
+                  "key": "timestamp"
+               }
+            }
+         ]
+      },
+      "id": 31
+   },
+   {
+      "timestamp": "4/3/2023 21:33:14",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 32
+   },
+   {
+      "timestamp": "4/3/2023 21:33:17",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 33
+   },
+   {
+      "timestamp": "4/3/2023 21:34:05",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 34
+   },
+   {
+      "timestamp": "4/3/2023 21:34:07",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 35
+   },
+   {
+      "timestamp": "4/3/2023 21:34:09",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 36
+   },
+   {
+      "timestamp": "4/3/2023 21:34:30",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 37
+   },
+   {
+      "timestamp": "4/3/2023 21:34:50",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 38
+   },
+   {
+      "timestamp": "4/3/2023 21:35:12",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 39
+   },
+   {
+      "timestamp": "4/3/2023 21:35:36",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 40
+   },
+   {
+      "timestamp": "4/3/2023 21:35:38",
+      "message": {
+         "code": "ERR_HTTP_INVALID_STATUS_CODE"
+      },
+      "id": 41
+   },
+   {
+      "timestamp": "4/3/2023 21:38:52",
+      "message": {},
+      "id": 42
    }
 ]

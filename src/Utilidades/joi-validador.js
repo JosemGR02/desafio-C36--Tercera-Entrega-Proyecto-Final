@@ -11,7 +11,7 @@ const productoJoi = joi.object({
     imagen: joi.string().min(20).max(150).required(),
     precio: joi.number().required(),
     stock: joi.number().required(),
+    timestamp: joi.string()
 });
 
 export const JOI_VALIDADOR = { productoJoi };
-

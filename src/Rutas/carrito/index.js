@@ -9,7 +9,7 @@ const ruta = Router();
 
 ruta.get("/compra", (solicitud, respuesta) => { respuesta.render("view/cart") });
 ruta.get("/:id", controladorCarritos.obtenerCarritoXid);
-ruta.get("/:id/productos", controladorCarritos.obtenerTodosProdsCarrito);
+ruta.get("/:id/productos/", controladorCarritos.obtenerTodosProdsCarrito);
 
 ruta.post("/", controladorCarritos.crearCarrito);
 ruta.post("/:id", controladorCarritos.guardarProdsCarrito);

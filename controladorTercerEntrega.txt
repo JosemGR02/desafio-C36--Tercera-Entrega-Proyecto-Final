@@ -1,0 +1,96 @@
+
+/*======================================================================================================================*/
+/*                                  <~~~~~~~~| Problemas y Dudas TXT |~~~~~~~~>                                         */
+/*======================================================================================================================*/
+
+
+REPO:   [ https://github.com/JosemGR02/desafio-C36--Tercera-Entrega-Proyecto-Final.git ]
+
+-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+		    |>|==============| Desafio clase 36: Tercer Entrega Proyecto |================|<|  
+
+
+========| EN PRODUCTOS (controlador)
+
+
+<|> En eliminar productos :
+
+
+en ambos no me funca DaoProducto.eliminarXid / DaoProducto.eliminarTodos
+
+const productoEliminado = await DaoProducto.eliminarXid(id);
+        
+await DaoProducto.eliminarTodos();
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<|> En actualizar productos: 
+
+
+logger.info(solicitud.body)
+
+{"level":"info","message":{"codigo":"3gfw156g7","descripcion":"pokemon Planta","imagen":"https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es","precio":50000,"stock":5,"titulo":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+
+
+pero no me muestra el producto validado
+
+logger.info(productoValidado)
+
+esta raro eso porque en guardar productos utilizo el mismo validador pero puedo ver x consola el producto creado, en actualizar intente, pero no me muestra nada, por lo que estaria fallando la validacion o algo antes
+
+"nuevoProducto" en guardarProductos:
+
+{"level":"info","message":{"nuevoProducto":{"codigo":"3gfw156g7","descripcion":"pokemon aaaaaaaaaaa","imagen":"https://static.wikia.nocookie.net/estrategiaspokemon/images/9/95/Charizard.png/revision/latest?cb=20151022213439&path-prefix=es","precio":60000,"stock":5,"timestamp":"1/3/2023 16:54:17","titulo":"eeeeeeeeeeeeeeeeeeee"}}}
+
+
+esta linea no estaria sabiendo si me funca bien, porque estaria el error antes
+
+const productoActualizado = await DaoProducto.actualizar({ productoValidado }, (productoId))
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<|> los get y post me funcionan bien
+
+
+-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+
+/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|/|
+
+
+-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~
+
+
+========| EN CARRITOS (controlador)
+
+<|> Al crear un carrito:
+
+pude solucionar el problema que tenia antes, ahora me crea el carrito pero no me muestra el id del nuevo carrito, con logger.info tampoco pude no se que onda
+
+quitando el .id del respuesta.send ( respuesta.send({ success: true, carritoId: nuevoCarrito.id }); )
+
+me mostro x consola 
+
+{
+    "success": true,
+    "carritoId": {
+        "timestamp": "2023-01-03T20:09:48.000Z",
+        "usuario": [],
+        "productos": [],
+        "__v": 0,
+        "id": "63ffb10d8b7aa3c5c6ebbde5"
+    }
+}
+
+donde estaria el error y como podria solucionarlo
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+<|> los demas no puedo probarlos hasta el momento, igual recuerdo que tuve problemas para que me anden el guardarProdsCarrito, obtenerProdCarrito, y creo que otro mas, que no pude resolver :(
+
+
+-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-
+
+

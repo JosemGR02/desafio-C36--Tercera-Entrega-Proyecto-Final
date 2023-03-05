@@ -40,24 +40,26 @@ const crearCarrito = async (solicitud, respuesta) => {
 
 const guardarProdsCarrito = async (solicitud, respuesta) => {
     try {
-        const { carritoId } = solicitud.params;
-        const { productoId } = solicitud.body;
+        const { _id } = solicitud.params;
+        const { prodId } = solicitud.body;
 
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
+        const carrito = await DaoCarrito.obtenerXid(_id);
+
+        logger.info({ carrito })
 
         if (!carrito)
             return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
 
-        const producto = await DaoProducto.obtenerXid(productoId);
+        const guardarProducto = await DaoProducto.obtenerXid(prodId);
 
-        if (!producto)
+        if (!guardarProducto)
             return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO });
 
-        carrito.productos.push(producto);
+        carrito.productos.push(guardarProducto);
 
-        logger.info(producto)
+        logger.info({ guardarProducto })
 
-        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
+        const carritoActualizado = await DaoCarrito.actualizar(_id, carrito);
 
         respuesta.send({ success: true, carrito: carritoActualizado, id: carritoActualizado._id });
     } catch (error) {
@@ -133,12 +135,12 @@ const eliminarProdCarrito = async (solicitud, respuesta) => {
 
 const eliminarCarritoXid = async (solicitud, respuesta) => {
     try {
-        const { carritoId } = solicitud.params;
+        const { id } = solicitud.params;
 
-        const carrito = await DaoCarrito.eliminarXid(carritoId);
+        const carrito = await DaoCarrito.eliminarXid(id);
         if (!carrito) return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
 
-        respuesta.send({ success: true, mensaje: `Se elimino correctamente el carrito ${carritoId}` })
+        respuesta.send({ success: true, mensaje: `Se elimino correctamente el carrito ${id}` })
     } catch (error) {
         respuesta.send(`${error}, Error al eliminar el carrito seleccionado`);
     }

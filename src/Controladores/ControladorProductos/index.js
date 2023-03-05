@@ -14,11 +14,11 @@ const obtenerTodos = async (solicitud, respuesta) => {
 
         respuesta.send(productos);
     } catch (error) {
-        respuesta.send({ error, error: "Error al obtener los productos solicitados" })
+        respuesta.send(`${error}, Error al obtener los productos solicitados`);
     }
 };
 
-const obtenerXid = async (solicitud, respuesta) => { //{ data: product }
+const obtenerXid = async (solicitud, respuesta) => {
     try {
         const { id } = solicitud.params;
 
@@ -26,7 +26,7 @@ const obtenerXid = async (solicitud, respuesta) => { //{ data: product }
 
         respuesta.send(producto);
     } catch (error) {
-        respuesta.send({ error, error: "Error al obtener el producto solicitados" })
+        respuesta.send(`${error}, Error al obtener el producto solicitados`);
     }
 };
 
@@ -34,6 +34,7 @@ const crearProducto = async (solicitud, respuesta) => {
     try {
         const { titulo, descripcion, codigo, imagen, precio, stock } = solicitud.body;
 
+        logger.info(solicitud.body)
         const nuevoProducto = await JOI_VALIDADOR.productoJoi.validateAsync({
             titulo, descripcion, codigo, imagen, precio, stock,
             timestamp: FECHA_UTILS.getTimestamp(),
@@ -41,16 +42,16 @@ const crearProducto = async (solicitud, respuesta) => {
         logger.info({ nuevoProducto })
         const productoCreado = await DaoProducto.guardar(nuevoProducto);
 
-        respuesta.send(productoCreado);
+        respuesta.send({ productoCreado });
     } catch (error) {
         await LOGGER_UTILS.addLog(error);
-        respuesta.send({ error, error: "Error al crear el producto solicitado" })
+        respuesta.send(`${error}, Error al crear el producto solicitado`);
     }
 };
 
 const actualizar = async (solicitud, respuesta) => {
     try {
-        const { productoId } = solicitud.params;
+        const { id } = solicitud.params;
 
         const { titulo, descripcion, stock, codigo, precio, imagen } = solicitud.body
 
@@ -59,12 +60,14 @@ const actualizar = async (solicitud, respuesta) => {
         });
         logger.info({ productoValidado })
 
-        const productoActualizado = await DaoProducto.actualizar({ productoId, productoValidado })
+        const productoActualizado = await DaoProducto.actualizar(id, productoValidado)
 
-        respuesta.send({ success: true, mensaje: "Se actualizo el producto correctamente", producto: productoActualizado, id: productoActualizado._id })
+        logger.info({ productoActualizado })
+
+        respuesta.send({ success: true, mensaje: "Se actualizo el producto correctamente", producto: productoActualizado })
 
     } catch (error) {
-        respuesta.send({ error, error: "Error al actualizar un producto" })
+        respuesta.send(`${error}, Error al actualizar un producto`);
     }
 };
 
@@ -76,7 +79,7 @@ const eliminarXid = async (solicitud, respuesta) => {
 
         respuesta.send({ success: true, eliminado: productoEliminado });
     } catch (error) {
-        respuesta.send({ error, error: "Error al eliminar el producto solicitado" })
+        respuesta.send(`${error}, Error al eliminar el producto solicitado`);
     }
 };
 
@@ -86,7 +89,7 @@ const eliminarTodos = async (solicitud, respuesta) => {
 
         respuesta.send({ success: true });
     } catch (error) {
-        respuesta.send({ error, error: "Error al eliminar todos los productos" })
+        respuesta.send(`${error}, Error al eliminar todos los productos`);
     }
 };
 
