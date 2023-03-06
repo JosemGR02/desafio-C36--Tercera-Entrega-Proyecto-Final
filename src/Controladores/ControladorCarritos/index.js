@@ -31,7 +31,7 @@ const crearCarrito = async (solicitud, respuesta) => {
 
         const nuevoCarrito = await DaoCarrito.guardar(carritoBase);
 
-        respuesta.send({ success: true, carritoId: nuevoCarrito._id });
+        respuesta.send({ success: true, carritoId: nuevoCarrito.id });
     } catch (error) {
         respuesta.send(`${error}, Error al crear el carrito`);
     }
@@ -59,7 +59,11 @@ const guardarProdsCarrito = async (solicitud, respuesta) => {
 
         logger.info({ guardarProducto })
 
-        const carritoActualizado = await DaoCarrito.actualizar(_id, carrito);
+        const datosCarrito = [];
+
+        datosCarrito.push({ productos: carrito.productos, usuario: carrito.usuario })
+
+        const carritoActualizado = await DaoCarrito.actualizar(_id, datosCarrito);
 
         respuesta.send({ success: true, carrito: carritoActualizado, id: carritoActualizado._id });
     } catch (error) {

@@ -12,7 +12,7 @@ ruta.get("/:id", controladorCarritos.obtenerCarritoXid);
 ruta.get("/:id/productos/", controladorCarritos.obtenerTodosProdsCarrito);
 
 ruta.post("/", controladorCarritos.crearCarrito);
-ruta.post("/:id", controladorCarritos.guardarProdsCarrito);
+ruta.post("/:_id", controladorCarritos.guardarProdsCarrito);
 ruta.post("/compra", controladorCarritos.procesarPedido);
 
 ruta.delete("/:id/productos/:id", controladorCarritos.eliminarProdCarrito);

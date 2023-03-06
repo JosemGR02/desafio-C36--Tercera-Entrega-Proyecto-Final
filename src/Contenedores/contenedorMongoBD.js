@@ -30,15 +30,8 @@ class ContenedorMongoBD {
         return respuesta;
     }
 
-    // async actualizar(id, nuevosDatos) {
-    //     const respuesta = await this.model.findByIdAndUpdate(id, nuevosDatos, {
-    //         new: true,
-    //     });
-    //     return respuesta;
-    // }
-
     async actualizar(id, nuevosDatos) {
-        const respuesta = await this.model.findOneAndUpdate({ id: id, $set: nuevosDatos })
+        const respuesta = await this.model.findOneAndUpdate({ id: id, $set: nuevosDatos, new: true })
         return respuesta
     }
 
