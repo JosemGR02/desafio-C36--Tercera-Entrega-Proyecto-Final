@@ -16,4 +16,24 @@ export class CarritosMongoBD extends ContenedorMongoBD {
 
         return respuesta;
     }
+
+    async añadirProducto(id, producto) {
+        try {
+            const respuesta = await this.model.findByIdAndUpdate(id, { $push: { productos: producto } }, { new: true })
+            return respuesta;
+
+        } catch (error) {
+            logger.warn(error);
+        }
+    }
+
+    async eliminarProducto(id, producto) {
+        try {
+            const respuesta = await this.model.findByIdAndUpdate(id, { $pull: { productos: producto } })
+            return respuesta;
+
+        } catch (error) {
+            logger.warn(error);
+        }
+    }
 }

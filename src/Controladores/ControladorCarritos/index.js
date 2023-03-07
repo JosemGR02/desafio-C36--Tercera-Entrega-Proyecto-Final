@@ -12,9 +12,9 @@ import { DaoCarrito, DaoProducto } from '../../Dao/index.js';
 
 const obtenerCarritoXid = async (solicitud, respuesta) => {
     try {
-        const { id } = solicitud.params;
+        const { _id } = solicitud.params;
 
-        const carrito = await DaoCarrito.obtenerXid(id);
+        const carrito = await DaoCarrito.obtenerXid(_id);
 
         if (!carrito)
             return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
@@ -37,73 +37,42 @@ const crearCarrito = async (solicitud, respuesta) => {
     }
 };
 
-
 const guardarProdsCarrito = async (solicitud, respuesta) => {
     try {
         const { _id } = solicitud.params;
         const { prodId } = solicitud.body;
 
-        const carrito = await DaoCarrito.obtenerXid(_id);
+        const producto = await DaoProducto.obtenerXid(prodId);
 
-        logger.info({ carrito })
+        if (!producto)
+            return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO });
+
+        const carrito = await DaoCarrito.añadirProducto(_id, producto._id);
 
         if (!carrito)
             return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
 
-        const guardarProducto = await DaoProducto.obtenerXid(prodId);
+        logger.info({ carrito })
 
-        if (!guardarProducto)
-            return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_PRODUCTO });
-
-        carrito.productos.push(guardarProducto);
-
-        logger.info({ guardarProducto })
-
-        const datosCarrito = [];
-
-        datosCarrito.push({ productos: carrito.productos, usuario: carrito.usuario })
-
-        const carritoActualizado = await DaoCarrito.actualizar(_id, datosCarrito);
-
-        respuesta.send({ success: true, carrito: carritoActualizado, id: carritoActualizado._id });
+        respuesta.send({ success: true, carrito: carrito });
     } catch (error) {
         respuesta.send(`${error}, Error al guardar un producto al carrito`);
     }
 };
 
-
-const actualizarProdsCarrito = async (solicitud, respuesta) => {
-    try {
-        const { carritoId } = solicitud.params;
-        const { productoId } = solicitud.body;
-
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
-
-        if (!carrito)
-            return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
-
-        const producto = await DaoProducto.obtenerXid(productoId);
-        if (!producto) return respuesta.send({ error: "Error, no se encontro el producto" })
-
-        carrito.productos.push(producto)
-
-        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito);
-
-        respuesta.send({ success: true, carrito: carritoActualizado });
-    } catch (error) {
-        respuesta.send(`${error}, Error al actualizar un producto al carrito`);
-    }
-};
-
 const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
     try {
-        const { carritoId } = solicitud.params;
+        const { _id } = solicitud.params;
 
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
-        if (!carrito) { respuesta.send({ error: "Error, no se encontro el carrito" }) }
+        const carrito = await DaoCarrito.obtenerXid(_id);
 
+        logger.info({ carrito })
+
+        if (!carrito) {
+            return logger.info({ error: "Error, no se encontro el carrito" })
+        }
         else {
-            const listadoProductos = carrito.productos;
+            const listadoProductos = { productos: carrito.productos._id };
 
             if (!listadoProductos) return respuesta.send({ error: true, mensaje: "No se encontraron los productos solicitados" });
 
@@ -114,22 +83,57 @@ const obtenerTodosProdsCarrito = async (solicitud, respuesta) => {
     }
 };
 
+
 const eliminarProdCarrito = async (solicitud, respuesta) => {
     try {
-        const { carritoId, productoId } = solicitud.params;
+        const { _id } = solicitud.params;
+        const { prodId } = solicitud.body;
 
-        const carrito = await DaoCarrito.obtenerXid(carritoId);
-        if (!carrito) { respuesta.send({ error: "Error, no se encontro el carrito" }) }
+        logger.info({ idC: solicitud.params })
+        logger.info({ idP: solicitud.body })
+
+        const producto = await DaoProducto.obtenerXid(prodId);
+        if (!producto) {
+            logger.info({ error: "Error, no se encontro el producto" })
+        }
+        logger.info({ producto })
+
+        const carrito = await DaoCarrito.obtenerXid(_id);
+        if (!carrito) {
+            logger.info({ error: "Error, no se encontro el carrito" })
+        }
+        logger.info({ carrito })
+
+        const productoEliminado = await DaoCarrito.eliminarProducto(_id, prodId)
+
+        logger.info({ eliminado: productoEliminado })
+
+        logger.info({ carrito })
+
+        respuesta.send({ success: true, mensaje: "Se elimino correctamente el producto del carrito", carrito: productoEliminado })
+    } catch (error) {
+        respuesta.send(`${error}, Error al eliminar un producto del carrito`)
+    }
+};
+
+const eliminarProCarrito = async (solicitud, respuesta) => {
+    try {
+        const { _cartId, _prodId } = solicitud.params;
+
+        const carrito = await DaoCarrito.obtenerXid(_cartId);
+        if (!carrito) {
+            logger.info({ error: "Error, no se encontro el carrito" })
+        }
 
         else {
-            const producto = await DaoProducto.obtenerXid(productoId);
+            const producto = await DaoProducto.obtenerXid(_prodId);
             if (!producto) return respuesta.send({ error: "Error, no se encontro el producto" })
 
-            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === productoId)
+            const elementoEncontradoIndex = carrito.productos.findIndex(elemento => elemento.id === _prodId)
             if (elementoEncontradoIndex === -1) return respuesta.send({ error: "Error, no se encontro el producto" })
             carrito.productos.splice(elementoEncontradoIndex, 1)
         }
-        const carritoActualizado = await DaoCarrito.actualizar(carritoId, carrito)
+        const carritoActualizado = await DaoCarrito.actualizar(_cartId, carrito)
         respuesta.send({ success: true, mensaje: "Se elimino correctamente el producto del carrito", carrito: carritoActualizado })
 
     } catch (error) {
@@ -139,12 +143,12 @@ const eliminarProdCarrito = async (solicitud, respuesta) => {
 
 const eliminarCarritoXid = async (solicitud, respuesta) => {
     try {
-        const { id } = solicitud.params;
+        const { _id } = solicitud.params;
 
-        const carrito = await DaoCarrito.eliminarXid(id);
+        const carrito = await DaoCarrito.eliminarXid(_id);
         if (!carrito) return respuesta.send({ error: true, mensaje: ERRORES_UTILS.MESSAGES.ERROR_CARRITO });
 
-        respuesta.send({ success: true, mensaje: `Se elimino correctamente el carrito ${id}` })
+        respuesta.send({ success: true, mensaje: `Se elimino correctamente el carrito ${_id}` })
     } catch (error) {
         respuesta.send(`${error}, Error al eliminar el carrito seleccionado`);
     }
@@ -220,7 +224,6 @@ export const controladorCarritos = {
     obtenerCarritoXid,
     guardarProdsCarrito,
     obtenerTodosProdsCarrito,
-    actualizarProdsCarrito,
     eliminarProdCarrito,
     eliminarCarritoXid,
     procesarPedido
